@@ -46,9 +46,18 @@ remove component from DOM
 1. **componentWillUnmount**
    - It is invoked before component disappear on browser
 
+## others
+1. componentDidCatch(): To show Error on browser when it is not in develpment environment
+
+## 
+![lifecycle diagram](https://www.truecodex.com/data/react/lifecycle-diagram.png)
+## TODO
+- Learn static getDerivedStateFromError()
+
 ---
 # Reference
 
 1. React- [React.Component](https://reactjs.org/docs/react-component.html#componentdidmount)
 2. velopert - [learing react 07](https://github.com/velopert/learning-react)
+3. Lifecycle image -[truecodex](https://www.truecodex.com/course/react-js/react-component-lifecycle-methods)
 
