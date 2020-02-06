@@ -1,9 +1,8 @@
 import React from 'react';
+import Say from 'Say';
 
 function App() {
-    return (
-        <div>Hello!</div>
-    );
+    return <Say />
 }
 
 export default App;
