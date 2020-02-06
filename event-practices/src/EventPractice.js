@@ -1,52 +1,43 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class EventPractice extends Component {
-    state = {
-        name: '',
-        message: ''
+const EventPractice = () => {
+    const [name, setName] = useState('');
+    const [message, setMessage] = useState('');
+
+    const onChangeName = e => setName(e.target.value);
+    const onChangeMessage = e => setMessage(e.target.value);
+
+    const onClick = () => {
+        alert(name + ': ' + message);
+        setName('');
+        setMessage('');
     }
 
-    handleOnChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleOnClick = (e) => {
-        alert(this.state.name + this.state.message);
-        this.setState({ 
-            name: '',
-            message: ''
-        });
-    }
-
-    handleKeyPress = (e) => {
-        if(e.key === 'Enter') {
-            this.handleOnClick();
+    const onKeyPress = e => {
+        if (e.key === 'Enter') {
+            onClick();
         }
     }
 
-    render() {
-        return(
-            <div>
-                <h1>Event Practice</h1>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="put your name"
-                    value={this.state.name}
-                    onChange={this.handleOnChange}></input>
-                <input
-                    type="text"
-                    name="message"
-                    placeholder="put your massage"
-                    value={this.state.message}
-                    onChange={this.handleOnChange}
-                    onKeyPress={this.handleKeyPress}></input>
-                <button onClick={this.handleOnClick}>Click</button>
-            </div>
-        );
-    }
+    return(
+        <div>
+            <h1>Event Practice</h1>
+            <input
+                type="text"
+                name="name"
+                placeholder="put your name"
+                value={name}
+                onChange={onChangeName}></input>
+            <input
+                type="text"
+                name="message"
+                placeholder="put your massage"
+                value={message}
+                onChange={onChangeMessage}
+                onKeyPress={onKeyPress}></input>
+            <button onClick={onClick}>Click</button>
+        </div>
+    );
 }
 
 export default EventPractice;
