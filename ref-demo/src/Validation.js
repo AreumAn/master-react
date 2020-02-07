@@ -17,12 +17,14 @@ class Validation extends Component {
             clicked: true,
             Validated: this.state.password === '0000'
         });
+        this.input.focus();
     }
 
     render() {
         return (
             <div>
                 <input
+                    ref={(ref) => this.input = ref}
                     type="password"
                     value={this.state.password}
                     onChange={this.handleChange}
