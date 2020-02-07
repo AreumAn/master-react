@@ -1,8 +1,11 @@
 import React from 'react';
+import Validation from 'Validation';
 
 function App() {
     return (
-        <div></div>
+        <div>
+            <Validation></Validation>
+        </div>
     );
 }
 
