@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useRef } from 'react';
 
 const getAverage = numbers => {
     console.log('get Average...');
@@ -11,6 +11,8 @@ const Average = () => {
     const [list, setList] = useState([]);
     const [number, setNumber] = useState('');
 
+    const inputEl = useRef(null);
+
     const onChange = useCallback(e => {
         setNumber(e.target.value);
     }, []); // only create when component rendering at the first time
@@ -19,6 +21,7 @@ const Average = () => {
         const nextList = list.concat(parseInt(number));
         setList(nextList);
         setNumber('');
+        inputEl.current.focus();
     }, [number, list]); // only create when `number` or `list` change
 
     // useMemo let getAverage only excute when list changes, it will not excute when the user adds input value.
@@ -26,7 +29,7 @@ const Average = () => {
 
     return (
         <div>
-            <input value={number} onChange={onChange} />
+            <input value={number} onChange={onChange} ref={inputEl}/>
             <button onClick={onInsert}>Add number</button>
             <ul>
                 {list.map((value, idx) => (
