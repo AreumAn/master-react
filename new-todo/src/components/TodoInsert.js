@@ -34,25 +34,23 @@ const TodoInputBtn = styled.button`
     }
 `;
 
-
 const TodoInsert = ({ onInsert }) => {
-    const [todoText, setTodoText] = useState('');
+    const [insertValue, setInsertValue] = useState('');
 
     const onChange = useCallback((e) => {
-        setTodoText(e.target.value);
+        setInsertValue(e.target.value);
     }, []);
 
     const onSubmit = useCallback((e) => {
-        onInsert(todoText);
-        setTodoText('');
-        // to prevent browser refresh by submit event
+        onInsert(insertValue);
+        setInsertValue('');
         e.preventDefault();
-    },[onInsert, todoText]);
+    }, [onInsert, insertValue]);
 
     return (
         <TodoInsertForm onSubmit={onSubmit}>
-            <TodoInput 
-                value={todoText}
+            <TodoInput
+                value={insertValue}
                 onChange={onChange}
                 placeholder="Type what to do"/>
             <TodoInputBtn type="submit">
