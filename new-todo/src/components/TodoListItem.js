@@ -8,7 +8,6 @@ import {
 import styled from 'styled-components';
 
 const TodoListItemBox = styled.div`
-    padding: 1rem;
     display: flex;
     align-items: center;
     &:nth-last-child(even) {
@@ -21,6 +20,7 @@ const TodoListItemBox = styled.div`
 `;
 
 const TodoCheckBox = styled.div`
+    padding: 0 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -42,6 +42,7 @@ const TodoText = styled.div`
 `;
 
 const Remove = styled.div`
+    padding: 0 1rem;
     font-size: 1.5rem;
     color: #ff6b6b;
     cursor: pointer;
@@ -50,11 +51,11 @@ const Remove = styled.div`
     }
 `;
 
-const TodoListItem = ({ todo, onRemove, onToggle }) => {
+const TodoListItem = ({ todo, onRemove, onToggle, style }) => {
     const { id, text, checked } = todo;
 
     return(
-        <TodoListItemBox>
+        <TodoListItemBox style={style}>
             <TodoCheckBox onClick={() => onToggle(id)}>
                 { checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
             </TodoCheckBox>
