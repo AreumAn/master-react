@@ -10,6 +10,8 @@ This is Toto app with react 16 and Hooks.
 - [react icons](http://react-icons.netlify.com/)
 - styled-components
 
+# optimization
+Used functional components with Hooks. To optimizate, need `React.memo` since `shouldComponentUpdate` only can be used in Class component.
 
 ---
 # Reference
