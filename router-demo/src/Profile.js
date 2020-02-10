@@ -1,4 +1,6 @@
 import React from 'react';
+import WithRouter from './WithRouter';
+import { withRouter } from 'react-router-dom';
 
 const data = {
     areum: {
@@ -23,8 +25,9 @@ const Profile = ({ match }) => {
         <div>
             <h3>{username}({profile.name})</h3>
             <p>{profile.description}</p>
+            <WithRouter />
         </div>
     );
 }
 
-export default Profile;
+export default withRouter(Profile);
