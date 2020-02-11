@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MovieItem from './MovieItem';
-import axios from 'axios';
+import { moviesApi } from 'api';
 
 const MovieListBox = styled.div `
     box-sizing: border-box;
@@ -16,25 +16,20 @@ const MovieListBox = styled.div `
     }
 `;
 
-const sampleMovie = {
-    title: 'title',
-    overview: 'overview',
-    poster_path: '/mMZRKb3NVo5ZeSPEIaNW9buLWQ0.jpg',
-    homepage: 'https://google.com'
-}
-
-const MovieList = () => {
+const MovieList = ({ genreId }) => {
     const [movies, setMovies] = useState(null);
+    const [selectedMovies, setSelectedMovies] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(
-                    'https://api.themoviedb.org/3/movie/now_playing?api_key=94abad8b6e42cfebed4f0232a57158d4',
-                );
-                setMovies(response.data.results);
+                const {
+                    data: { results: upcomingMovies }
+                } = await moviesApi.nowPlaying();
+                setMovies(upcomingMovies);
+                setSelectedMovies(upcomingMovies);
             } catch (e) {
                 console.log(e);
             }
@@ -43,6 +38,19 @@ const MovieList = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        if(genreId) {
+            setSelectedMovies(
+                movies.filter(movie => 
+                    movie.genre_ids.indexOf(genreId) !== -1
+                )
+            );
+        } else {
+            setMovies(movies);
+        }
+    },[movies, genreId]);
+
+
     if(loading) {
         return <MovieListBox>Loading...</MovieListBox>;
     }
@@ -50,9 +58,14 @@ const MovieList = () => {
     if(!movies) {
         return null;
     }
+
+    if(genreId && selectedMovies.length === 0) {
+        return <MovieListBox>No item</MovieListBox>
+    }
+
     return (
         <MovieListBox>
-            {movies.map((movie) => (
+            {selectedMovies.map((movie) => (
                 <MovieItem key={movie.id} movie={movie} />
             ))}
         </MovieListBox>

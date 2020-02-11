@@ -1,29 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
-const genres = [
-    {
-        "name": "Action"
-    },
-    {
-        "name": "Adventure"
-    },
-    {
-        "name": "Animation"
-    },
-    {
-        "name": "Comedy"
-    },
-    {
-        "name": "Crime"
-    },
-    {
-        "name": "Documentary"
-    },
-    {
-        "name": "Drama"
-    }
-]
+import { genresApi } from 'api';
 
 const GenresBox = styled.div`
     display: flex;
@@ -62,11 +39,43 @@ const Genre = styled.div`
     }
 `;
 
-const Genres = () => {
+const Genres = ({ onSelect, genreId }) => {
+    const [ genres, setGenres ] = useState(null);
+    const [ loading, setLoading ] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const {
+                    data: { genres: genresResult }
+                } = await genresApi.genreList();
+                setGenres(genresResult.slice(0, 7));
+            } catch (e) {
+                console.log(e);
+            }
+            setLoading(false);
+        };
+        fetchData();
+    }, []);
+
+    if(loading) {
+        return <GenresBox>Loading...</GenresBox>;
+    }
+
+    if(!genres) {
+        return null;
+    }
+
     return (
         <GenresBox>
-            {genres.map((genre, idx) => (
-                <Genre key={idx}>{genre.name}</Genre>
+            {genres.map((gen, idx) => (
+                <Genre 
+                    key={idx}
+                    active={genreId === gen.id}
+                    onClick={() => onSelect(gen.id)}>
+                    {gen.name}
+                </Genre>
             ))}
         </GenresBox>
     );
