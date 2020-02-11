@@ -24,14 +24,15 @@ const Genre = styled.div`
     &:hover {
         color: #495057;
     }
-
-    &.active {
-        font-weight: 600;
-        border-bottom: 2px solid #22b8cf;
-        color: #22b8cf;
-        &:hover {
-        color: #3bc9db;
-        }
+    ${props => 
+        props.active && `
+            font-weight: 600;
+            border-bottom: 2px solid #22b8cf;
+            color: #22b8cf;
+            margin-right: 1rem;
+            &:hover {
+                color: #3bc9db;
+        `
     }
 
     & + & {
