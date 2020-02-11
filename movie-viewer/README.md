@@ -2,3 +2,4 @@
 
 ## libraries
 - axios
+- styled-component
