@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { genresApi } from 'api';
+import { NavLink } from 'react-router-dom';
 
 const GenresBox = styled.div`
     display: flex;
@@ -13,7 +14,7 @@ const GenresBox = styled.div`
     }
 `;
 
-const Genre = styled.div`
+const Genre = styled(NavLink)`
     font-size: 1.125rem;
     cursor: pointer;
     white-space: pre;
@@ -24,15 +25,15 @@ const Genre = styled.div`
     &:hover {
         color: #495057;
     }
-    ${props => 
-        props.active && `
-            font-weight: 600;
-            border-bottom: 2px solid #22b8cf;
-            color: #22b8cf;
-            margin-right: 1rem;
-            &:hover {
-                color: #3bc9db;
-        `
+    
+    &.active {
+        font-weight: 600;
+        border-bottom: 2px solid #22b8cf;
+        color: #22b8cf;
+        margin-right: 1rem;
+        &:hover {
+            color: #3bc9db;
+        }
     }
 
     & + & {
@@ -70,11 +71,23 @@ const Genres = ({ onSelect, genreId }) => {
 
     return (
         <GenresBox>
-            {genres.map((gen, idx) => (
+            <Genre
+                key='all'
+                activeClassName='active'
+                exact={true}
+                to={{
+                        pathname: '/',
+                        pathGenreId: 'all'
+                    }}>Home</Genre>
+            {genres.map((gen) => (
                 <Genre 
-                    key={idx}
-                    active={genreId === gen.id}
-                    onClick={() => onSelect(gen.id)}>
+                    key={gen.id}
+                    activeClassName="active"
+                    exact={false}
+                    to={{
+                            pathname: `/${gen.name}`,
+                            pathGenreId: gen.id
+                        }}>
                     {gen.name}
                 </Genre>
             ))}

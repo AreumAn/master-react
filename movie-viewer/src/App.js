@@ -1,16 +1,11 @@
-import React, { useState, useCallback } from 'react';
-import MovieList from 'components/MovieList';
-import Genres from './components/Genres';
+import React from 'react';
+import { Route } from 'react-router-dom';
+import MoviePages from 'pages/MoviePages';
 
 const App = () => {
-    const [genreId, setGenre] = useState('');
-    const onSelect = useCallback(genreId => setGenre(genreId),[]);
-
     return (
-        <>
-        <Genres genreId={genreId} onSelect={onSelect}/>
-        <MovieList genreId={genreId} />
-        </>
+        // ? means optional
+        <Route path="/:genre?" component={MoviePages} />
     );
 }
 

@@ -39,17 +39,16 @@ const MovieList = ({ genreId }) => {
     }, []);
 
     useEffect(() => {
-        if(genreId) {
+        if(genreId && genreId !== 'all') {
             setSelectedMovies(
                 movies.filter(movie => 
                     movie.genre_ids.indexOf(genreId) !== -1
                 )
             );
         } else {
-            setMovies(movies);
+            setSelectedMovies(movies);
         }
     },[movies, genreId]);
-
 
     if(loading) {
         return <MovieListBox>Loading...</MovieListBox>;
