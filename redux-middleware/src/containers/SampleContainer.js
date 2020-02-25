@@ -15,8 +15,15 @@ const SampleContainer = ({
 }) => {
     // If it is class component, it would be componentDidMount
     useEffect(() => {
-        getPost(1);
-        getUsers(1);
+        const fn = async() => {
+            try {
+                await getPost(1);
+                await getUsers(1);
+            } catch(e) {
+                console.log(e);
+            }
+        };
+        fn();
     }, [getPost, getUsers]);
     return (<Sample
         post={post}
@@ -26,11 +33,11 @@ const SampleContainer = ({
 };
 
 export default connect(
-    ({sample }) => ({
+    ({sample, loading }) => ({
             post: sample.post, 
             users: sample.users, 
-            loadingPost: sample.loading.GET_POST, 
-            loadingUsers: sample.loading.GET_USERS
+            loadingPost: loading.GET_POST, 
+            loadingUsers: loading.GET_USERS
         }), 
         {
             getPost, 
