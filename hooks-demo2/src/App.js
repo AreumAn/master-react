@@ -3,6 +3,7 @@ import Counter from './Counter';
 import Info from './Info';
 import CounterWithReducer from './CounterWithReducer';
 import InfoWithReducer from './InfoWithReducer';
+import Average from './Average';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <CounterWithReducer />
         <hr />
         <InfoWithReducer />
+        <hr />
+        <Average />
       </>
   );
 }
